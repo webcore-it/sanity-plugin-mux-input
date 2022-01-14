@@ -80,15 +80,15 @@ export default class SelectAsset extends React.Component {
       <div className={styles.root}>
         <div className={styles.imageList}>
           {assets.map((asset) => {
-            const size = 80
-            const width = 100
-            const height = 100
+            const size = 160
+            const width = 160
+            const height = 160
             const posterUrl = getPosterSrc(asset.playbackId, {
               time: asset.thumbTime || 1,
               // eslint-disable-next-line camelcase
               fit_mode: 'smartcrop',
-              width: 100,
-              height: 100,
+              width: width,
+              height: height,
               isSigned: asset.data && asset.data.playback_ids[0].policy === 'signed',
               signingKeyId: secrets.signingKeyId || null,
               signingKeyPrivate: secrets.signingKeyPrivate || null,
@@ -116,6 +116,7 @@ export default class SelectAsset extends React.Component {
                   className={styles.image}
                   title={asset.filename || asset.playbackId}
                 />
+                <p className={styles.filename}>{asset.filename || asset.playbackId}</p>
               </a>
             )
           })}
