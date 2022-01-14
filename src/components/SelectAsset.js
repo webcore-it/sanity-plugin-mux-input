@@ -8,7 +8,7 @@ import styles from './SelectAsset.css'
 const PER_PAGE = 200
 
 function createQuery(start = 0, end = PER_PAGE) {
-  return `*[_type == "mux.videoAsset"] | order(_updatedAt desc) [${start}...${end}] {_id, playbackId, thumbTime, data}`
+  return `*[_type == "mux.videoAsset"] | order(_updatedAt desc) [${start}...${end}] {_id, playbackId, thumbTime, data, filename}`
 }
 
 export default class SelectAsset extends React.Component {
