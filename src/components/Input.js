@@ -295,9 +295,46 @@ export default withDocument(
             },
             () => {
               if (this.state.deleteOnMuxChecked || this.state.deleteAssetDocumentChecked) {
+
+                // Update document, remove the mux video asset.
+                const updatedDocument = { ...this.props.document };
+
+                // Not all documents have the video in the field "video", so we spend some time just searching for the correct field.
+                const findAndDeleteMediaAsset = (
+                  obj,
+                  depth = 0
+                ) => {
+                  // Don't go too deep into the rabbit hole.
+                  if (depth > 30) {
+                    return;
+                  }
+
+                  // Don't handle strings. We are searching for video objects.
+                  if (!obj || typeof obj === 'string') {
+                    return;
+                  }
+
+                  // This is the object we want.
+                  if (
+                    obj.asset._ref === assetDocument._id
+                  ) {
+                    delete obj.asset;
+                    return;
+                  }
+
+                  // Go deeper into the dungeon, adventurer.
+                  Object.keys(obj).forEach((key) => {
+                    findAndDeleteMediaAsset(obj[key], depth + 1);
+                  });
+                };
+
+                Object.keys(updatedDocument).forEach((key) => {
+                  findAndDeleteMediaAsset(updatedDocument[key]);
+                });
+
                 return client
                   .patch(this.props.document._id)
-                  .unset(['video'])
+                  .set(updatedDocument)
                   .commit({returnDocuments: false})
                   .then(() => {
                     if (!assetDocument) {
