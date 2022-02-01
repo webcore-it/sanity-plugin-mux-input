@@ -297,7 +297,7 @@ export default withDocument(
               if (this.state.deleteOnMuxChecked || this.state.deleteAssetDocumentChecked) {
 
                 // Update document, remove the mux video asset.
-                const updatedDocument = { ...this.props.document };
+                const updatedDocument = {...this.props.document};
 
                 // Not all documents have the video in the field "video", so we spend some time just searching for the correct field.
                 const findAndDeleteMediaAsset = (
@@ -316,7 +316,7 @@ export default withDocument(
 
                   // This is the object we want.
                   if (
-                    obj.asset._ref === assetDocument._id
+                    obj.asset && obj.asset._ref === assetDocument._id
                   ) {
                     delete obj.asset;
                     return;
@@ -533,7 +533,7 @@ export default withDocument(
 
       return (
         <Stack padding={4} space={5} style={{backgroundColor: '#efefefef', borderRadius: 3}}>
-          <MuxLogo />
+          <MuxLogo/>
           <Stack space={4}>
             {isInitialSetup && (
               <Text>
@@ -609,7 +609,7 @@ export default withDocument(
     renderBrowser() {
       return (
         <FullscreenDialog title="Select video" onClose={this.handleCloseBrowser} isOpen>
-          <SelectAsset onSelect={this.handleSelectAsset} />
+          <SelectAsset onSelect={this.handleSelectAsset}/>
         </FullscreenDialog>
       )
     }
@@ -659,7 +659,7 @@ export default withDocument(
             {isLoading === 'secrets' && (
               <Box marginBottom={2}>
                 <Inline align="center" space={2}>
-                  <Spinner inline />
+                  <Spinner inline/>
                   <Text size={1}>Fetching credentials</Text>
                 </Inline>
               </Box>
