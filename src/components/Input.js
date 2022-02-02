@@ -358,13 +358,14 @@ export default withDocument(
       return unsetAsset()
         .then(() => {
           if (this.state.deleteOnMuxChecked) {
-            if(assetDocument.previewAssetId) {
-              deleteAsset(assetDocument.previewAssetId).catch((error) => {
-                this.setState({error})
-              })
-            }
             return deleteAsset(assetDocument.assetId).catch((error) => {
               this.setState({error})
+            }).then(() => {
+              if(assetDocument.previewAssetId) {
+                deleteAsset(assetDocument.previewAssetId).catch((error) => {
+                  this.setState({error})
+                })
+              }
             })
           }
           return true
