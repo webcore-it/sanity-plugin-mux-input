@@ -162,6 +162,8 @@ export default withDocument(
         'assetId',
         'playbackId',
         'status',
+        'filename',
+        'previewAssetId',
       ])
         .pipe(
           tap((assetDocument) => {
