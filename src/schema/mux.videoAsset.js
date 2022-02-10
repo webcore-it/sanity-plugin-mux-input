@@ -13,7 +13,15 @@ export default {
     },
     {
       type: 'string',
+      name: 'previewAssetId',
+    },
+    {
+      type: 'string',
       name: 'playbackId',
+    },
+    {
+      type: 'string',
+      name: 'previewPlaybackId',
     },
     {
       type: 'string',
