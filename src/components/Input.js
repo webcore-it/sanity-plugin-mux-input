@@ -164,6 +164,7 @@ export default withDocument(
         'status',
         'filename',
         'previewAssetId',
+        'previewPlaybackId',
       ])
         .pipe(
           tap((assetDocument) => {
